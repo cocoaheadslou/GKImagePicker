@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UIImage *imageToCrop;
 @property (nonatomic, assign) CGSize cropSize;
+@property (nonatomic, assign) CGFloat borderWidth;
+@property (nonatomic, assign) CGFloat cornerRadius;
 @property (nonatomic, assign) BOOL resizableCropArea;
 
 - (UIImage *)croppedImage;

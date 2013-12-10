@@ -40,37 +40,36 @@
 
 - (void)drawRect:(CGRect)rect{
     
-    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
+    CGFloat toolbarSize = 70;
+    CGFloat x = floor(self.frame.size.width / 2 - self.cropSize.width / 2);
+    CGFloat y = floor((self.frame.size.height - toolbarSize) / 2 - self.cropSize.height / 2);
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(
+        0, 0, self.frame.size.width, self.frame.size.height) cornerRadius:0];
+    
+    UIBezierPath *circlePath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(
+        x, y, self.cropSize.width, self.cropSize.height) cornerRadius:self.cornerRadius];
+    
+    [path appendPath:circlePath];
+    [path setUsesEvenOddFillRule:YES];
 
-    CGFloat width = CGRectGetWidth(self.frame);
-    CGFloat height = CGRectGetHeight(self.frame) - toolbarSize;
+    CAShapeLayer *fillLayer = [CAShapeLayer layer];
+    fillLayer.path = path.CGPath;
+    fillLayer.fillRule = kCAFillRuleEvenOdd;
+    fillLayer.fillColor = [UIColor blackColor].CGColor;
+    fillLayer.opacity = 0.4;
+    [self.layer addSublayer:fillLayer];
     
-    CGFloat heightSpan = floor(height / 2 - self.cropSize.height / 2);
-    CGFloat widthSpan = floor(width / 2 - self.cropSize.width  / 2);
-    
-    //fill outer rect
-    [[UIColor colorWithRed:0. green:0. blue:0. alpha:0.5] set];
-    UIRectFill(self.bounds);
-    
-    //fill inner border
-    [[UIColor colorWithRed:1. green:1. blue:1. alpha:0.5] set];
-    UIRectFrame(CGRectMake(widthSpan - 2, heightSpan - 2, self.cropSize.width + 4, self.cropSize.height + 4));
-    
-    //fill inner rect
-    [[UIColor clearColor] set];
-    UIRectFill(CGRectMake(widthSpan, heightSpan, self.cropSize.width, self.cropSize.height));
-    
-    
-    
-    if (heightSpan > 30 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        
-        [[UIColor whiteColor] set];
-        [NSLocalizedString(@"GKImoveAndScale", @"") drawInRect:CGRectMake(10, (height - heightSpan) + (heightSpan / 2 - 20 / 2) , width - 20, 20) 
-                                                   withFont:[UIFont boldSystemFontOfSize:20] 
-                                              lineBreakMode:NSLineBreakByTruncatingTail
-                                                  alignment:NSTextAlignmentCenter];
-        
-    }
+    UIBezierPath *borderPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(
+        x - self.borderWidth + 1, y - self.borderWidth + 1,
+        self.cropSize.width + self.borderWidth * 2 - 2,
+        self.cropSize.height + self.borderWidth * 2 - 2) cornerRadius:self.cornerRadius];
+    CAShapeLayer *borderLayer = [CAShapeLayer layer];
+    borderLayer.path = borderPath.CGPath;
+    borderLayer.strokeColor = [UIColor whiteColor].CGColor;
+    borderLayer.lineWidth = self.borderWidth;
+    borderLayer.fillColor = [UIColor clearColor].CGColor;
+    [self.layer addSublayer:borderLayer];
 }
 
 @end

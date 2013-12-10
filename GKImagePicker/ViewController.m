@@ -31,7 +31,7 @@
 - (void)showPicker:(UIButton *)btn{
     
     self.imagePicker = [[GKImagePicker alloc] init];
-    self.imagePicker.cropSize = CGSizeMake(280, 280);
+    self.imagePicker.cropSize = CGSizeMake(200, 300);
     self.imagePicker.delegate = self;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {

@@ -16,7 +16,9 @@
 
 @property (nonatomic, strong) UIImage *sourceImage;
 @property (nonatomic, assign) CGSize cropSize; //size of the crop rect, default is 320x320
-@property (nonatomic, assign) BOOL resizeableCropArea; 
+@property (nonatomic, assign) BOOL resizeableCropArea;
+@property (nonatomic, assign) CGFloat borderWidth;
+@property (nonatomic, assign) CGFloat cornerRadius;
 @property (nonatomic, strong) id<GKImageCropControllerDelegate> delegate;
 
 @end

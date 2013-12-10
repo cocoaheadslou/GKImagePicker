@@ -14,8 +14,15 @@
 
 @property (nonatomic, weak) id<GKImagePickerDelegate> delegate;
 @property (nonatomic, assign) CGSize cropSize; //default value is 320x320 (which is exactly the same as the normal imagepicker uses)
+@property (nonatomic, assign) CGFloat borderWidth;
+@property (nonatomic, assign) CGFloat cornerRadius;
 @property (nonatomic, strong, readonly) UIImagePickerController *imagePickerController;
 @property (nonatomic, assign) BOOL resizeableCropArea;
+
+- (id)initWithCropSize:(CGSize)cropSize borderWidth:(CGFloat)borderWidth
+    cornerRadius:(CGFloat)cornerRadius;
+
+- (id)initWithCropCircleOfDiameter:(CGFloat)diameter borderWidth:(CGFloat)borderWidth;
 
 @end
 

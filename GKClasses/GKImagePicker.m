@@ -34,8 +34,26 @@
         _imagePickerController = [[UIImagePickerController alloc] init];
         _imagePickerController.delegate = self;
         _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
+        self.borderWidth = 1.0;
+        self.cornerRadius = 0.0;
     }
     return self;
+}
+
+- (id)initWithCropSize:(CGSize)cropSize_ borderWidth:(CGFloat)borderWidth
+    cornerRadius:(CGFloat)cornerRadius
+{
+    self = [self init];
+    self.cropSize = cropSize_;
+    self.borderWidth = borderWidth;
+    self.cornerRadius = cornerRadius;
+    return self;
+}
+
+- (id)initWithCropCircleOfDiameter:(CGFloat)diameter borderWidth:(CGFloat)borderWidth
+{
+    return [self initWithCropSize:CGSizeMake(diameter, diameter) borderWidth:borderWidth cornerRadius:diameter * 0.5];
 }
 
 # pragma mark -
@@ -75,6 +93,8 @@
     cropController.sourceImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     cropController.resizeableCropArea = self.resizeableCropArea;
     cropController.cropSize = self.cropSize;
+    cropController.borderWidth = self.borderWidth;
+    cropController.cornerRadius = self.cornerRadius;
     cropController.delegate = self;
     [picker pushViewController:cropController animated:YES];
     

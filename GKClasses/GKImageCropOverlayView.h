@@ -10,4 +10,6 @@
 
 @interface GKImageCropOverlayView : UIView
 @property (nonatomic, assign) CGSize cropSize; //size of the cropped image
+@property (nonatomic, assign) CGFloat borderWidth;
+@property (nonatomic, assign) CGFloat cornerRadius;
 @end
